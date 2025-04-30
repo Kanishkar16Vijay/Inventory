@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Product Movement</title>
+</head>
+<body>
+    <h1>Add Product Movement</h1>
+    <form action="/addmovement" method="post">
+        <label>Movement ID</label>
+        <input type="number" name="mid" required>
+        <br>
+        <label>Product ID</label>
+        <!-- <select name="pid" reqiured>
+            {% for key in products %}
+            <option value="{{key['product_id']}}">{{key['name']}}</option>
+            {% endfor %}
+        </select> -->
+        <input type="number" value="pid">
+        <br>
+        <label>Location From</label>
+        <input type="number" name="froml">
+        <br>
+        <label>Location To</label>
+        <input type="number" name="tol" required>
+        <br>
+        <button type="submit">ADD</button>
+    </form>
+    <a href="/addproduct">Add Product</a>
+    <a href="/viewproduct">View Products</a>
+    <a href="/addlocation">Add Location</a>
+    <a href="/viewlocation">View Locations</a>
+</body>
+</html>
