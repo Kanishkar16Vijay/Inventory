@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Product</title>
+</head>
+<body>
+    <h1>Edit Product</h1>
+    <form action="/editproduct/{{result['product_id']}}" method="post">
+        <label>Product ID</label>
+        <input type="number" name="pid" value="{{result['product_id']}}" required>
+        <br>
+        <label>Name</label>
+        <input type="text" name="pname"  value="{{result['name']}}" required>
+        <br>
+        <button type="submit">UPDATE</button>
+    </form> 
+    <a href="/viewproduct">View Products</a>
+    <a href="/addlocation">Add Location</a>
+    <a href="/viewlocation">View Locations</a>
+    <a href="/addmovement">Add Movement</a>
+</body>
+</html>
