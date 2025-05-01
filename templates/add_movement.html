@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Movement</title>
+</head>
+<body>
+    <h1>Add Product Movement</h1>
+    <form action="/addmovement" method="post">
+        <label>Product ID</label>
+        <select name="pid" reqiured>
+            <option value="">Select the Product</option>
+            {% for key in products %}
+            <option value="{{key['product_id']}}">{{key['name']}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Location From</label>
+        <select name="froml">
+            <option value="">Selct the Location</option>
+            {% for key in locations %}
+            <option value="{{key['location_id']}}">{{key['name']}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label>Location To</label>
+        <select name="tol" required>
+            <option value="">Select the Location</option>
+            {% for key in locations %}
+            <option value="{{key['location_id']}}">{{key['name']}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <button type="submit">ADD</button>
+    </form>
+    <a href="/addproduct">Add Product</a>
+    <a href="/viewproduct">View Products</a>
+    <a href="/addlocation">Add Location</a>
+    <a href="/viewlocation">View Locations</a>
+    <a href="/productmovement">Product Movement</a>
+</body>
+</html>

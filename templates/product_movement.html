@@ -4,40 +4,29 @@
     <title>Product Movement</title>
 </head>
 <body>
-    <h1>Add Product Movement</h1>
-    <form action="/addmovement" method="post">
-        <label>Movement ID</label>
-        <input type="number" name="mid" required>
-        <br>
-        <label>Product ID</label>
-        <select name="pid" reqiured>
-            <option value="">Select the Product</option>
-            {% for key in products %}
-            <option value="{{key['product_id']}}">{{key['name']}}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <label>Location From</label>
-        <select name="froml">
-            <option value="">Selct the Location</option>
-            {% for key in locations %}
-            <option value="{{key['location_id']}}">{{key['name']}}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <label>Location To</label>
-        <select name="tol" required>
-            <option value="">Select the Location</option>
-            {% for key in locations %}
-            <option value="{{key['location_id']}}">{{key['name']}}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit">ADD</button>
-    </form>
+    <h1>Product Movement</h1>
+    <table>
+        <tr>
+            <th>Movement ID</th>
+            <th>Product Name</th>
+            <th>From Location</th>
+            <th>To Location</th>
+            <th>Date & Time</th>
+        </tr>
+        {% for dict in movements %}
+        <tr>
+            <td>{{dict['movement_id']}}</td>
+            <td>{{dict['product_name']}}</td>
+            <td>{{dict['from_location_name']}}</td>
+            <td>{{dict['to_location_name']}}</td>
+            <td>{{dict['Date_Time']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
     <a href="/addproduct">Add Product</a>
     <a href="/viewproduct">View Products</a>
     <a href="/addlocation">Add Location</a>
     <a href="/viewlocation">View Locations</a>
+    <a href="/addmovement">Add Movement</a>
 </body>
 </html>

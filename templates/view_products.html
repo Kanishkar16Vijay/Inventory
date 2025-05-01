@@ -7,13 +7,14 @@
     <h1>View Products</h1>
     <table>
         <tr>
-            <td>Product ID</td>
-            <td>Product Name</td>
+            <th>Product ID</th>
+            <th>Product Name</th>
         </tr>
         {% for dict in products %}
         <tr>
             <td>{{dict['product_id']}}</td>
             <td>{{dict['name']}}</td>
+            <td>{{dict['price']}}</td>
             <td><a href="/editproduct/{{dict['product_id']}}">Edit</a></td>
         </tr>
         {% endfor %}
@@ -22,5 +23,6 @@
     <a href="/addlocation">Add Location</a>
     <a href="/viewlocation">View Locations</a>
     <a href="/addmovement">Add Movement</a>
+    <a href="/productmovement">Product Movement</a>
 </body>
 </html>
