@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1>Add Product Movement</h1>
+    <h4>{{act}}</h4>
     <form action="/addmovement" method="post">
         <label>Product ID</label>
         <select name="pid" reqiured>
@@ -23,12 +24,15 @@
         </select>
         <br>
         <label>Location To</label>
-        <select name="tol" required>
+        <select name="tol">
             <option value="">Select the Location</option>
             {% for key in locations %}
             <option value="{{key['location_id']}}">{{key['name']}}</option>
             {% endfor %}
         </select>
+        <br>
+        <label>Quantity</label>
+        <input type="number" name="quantity" required>
         <br>
         <button type="submit">ADD</button>
     </form>

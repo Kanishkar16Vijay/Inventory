@@ -29,7 +29,6 @@ def add_products() :
         connection.commit()
         cur.close()
         connection.close()
-        return render_template('add_product.html')
     return render_template('add_product.html')
 
 @app.route('/viewproduct')
@@ -72,7 +71,6 @@ def add_location() :
         connection.commit()
         cur.close()
         connection.close()
-        return render_template('add_location.html')
     return render_template('add_location.html')
 
 @app.route('/viewlocation')
@@ -101,16 +99,65 @@ def add_movement() :
         from_l=request.form.get('froml')
         if from_l=="" : from_l=None
         to_l=request.form.get('tol')
+        if to_l=="" : to_l=None
         now_ist = datetime.now(ZoneInfo("Asia/Kolkata"))
         dt=now_ist.strftime("%Y-%m-%d %H:%M:%S")
-        connection=get_db_connection()
-        cur=connection.cursor()
-        cur.execute("INSERT INTO Movement(movement_id,product_id,from_location,to_location,Date_Time) VALUES(%s,%s,%s,%s,%s)",(m_id,p_id,from_l,to_l,dt))
-        connection.commit()
-        cur.close()
-        connection.close()
-        return render_template('add_movement.html',locations=location,products=product)
-    return render_template('add_movement.html',locations=location,products=product)
+        quantity=request.form.get('quantity')
+        if  from_l or to_l : #if any one date is given or not
+            connection=get_db_connection()
+            cur=connection.cursor()
+            #------------------------------------
+            if from_l is None and to_l :
+                cur.execute("SELECT EXISTS(SELECT 1 FROM Stock WHERE product_id=%s AND location_id=%s)AS product_exist",(p_id,to_l))
+                val=cur.fetchall()
+                if val[0][0] :
+                    cur.execute("SELECT quantity FROM Stock WHERE product_id=%s AND location_id=%s",(p_id,to_l))
+                    q=cur.fetchall()
+                    cur.execute("UPDATE Stock SET quantity=%s WHERE product_id=%s AND location_id=%s",(q[0][0]+int(quantity),p_id,to_l))
+                    connection.commit()
+                else :
+                    cur.execute("INSERT INTO Stock(product_id,location_id,quantity) VALUES(%s,%s,%s)",(p_id,to_l,quantity))
+                    connection.commit()
+            elif from_l and to_l is None :
+                cur.execute("SELECT EXISTS(SELECT 1 FROM Stock WHERE product_id=%s AND location_id=%s)AS product_exist",(p_id,from_l))
+                val=cur.fetchall()
+                if val[0][0] :
+                    cur.execute("SELECT quantity FROM Stock WHERE product_id=%s AND location_id=%s",(p_id,from_l))
+                    q=cur.fetchall()
+                    cur.execute("UPDATE Stock SET quantity=%s WHERE product_id=%s AND location_id=%s",(q[0][0]-int(quantity),p_id,from_l))
+                    connection.commit()
+                else :
+                    return render_template('add_movement.html',locations=location,products=product,act="Give the vaild location in From Locaton")
+            else :# from_l and to_l
+                #from check
+                cur.execute("SELECT EXISTS(SELECT 1 FROM Stock WHERE product_id=%s AND location_id=%s)AS product_exist",(p_id,from_l))
+                val=cur.fetchall()
+                if val[0][0] :
+                    cur.execute("SELECT quantity FROM Stock WHERE product_id=%s AND location_id=%s",(p_id,from_l))
+                    q=cur.fetchall()
+                    cur.execute("UPDATE Stock SET quantity=%s WHERE product_id=%s AND location_id=%s",(q[0][0]-int(quantity),p_id,from_l))
+                    connection.commit()
+                else :
+                    return render_template('add_movement.html',locations=location,products=product,act="Give the vaild location in From Locaton")
+                #to check
+                cur.execute("SELECT EXISTS(SELECT 1 FROM Stock WHERE product_id=%s AND location_id=%s)AS product_exist",(p_id,to_l))
+                val=cur.fetchall()
+                if val[0][0] :
+                    cur.execute("SELECT quantity FROM Stock WHERE product_id=%s AND location_id=%s",(p_id,to_l))
+                    q=cur.fetchall()
+                    cur.execute("UPDATE Stock SET quantity=%s WHERE product_id=%s AND location_id=%s",(q[0][0]+int(quantity),p_id,to_l))
+                    connection.commit()
+                else :
+                    cur.execute("INSERT INTO Stock(product_id,location_id,quantity) VALUES(%s,%s,%s)",(p_id,to_l,quantity))
+                    connection.commit()
+            #------------------------------------
+            cur.execute("INSERT INTO Movement(movement_id,product_id,from_location,to_location,quantity,Date_Time) VALUES(%s,%s,%s,%s,%s,%s)",(m_id,p_id,from_l,to_l,quantity,dt))
+            connection.commit()
+            cur.close()
+            connection.close()
+        else :
+            return render_template('add_movement.html',locations=location,products=product,act="Movement is not added, Please enter ony one location")
+    return render_template('add_movement.html',locations=location,products=product,act="Add the Movement")
 
 @app.route('/productmovement')
 def product_movement() :
@@ -122,6 +169,7 @@ def product_movement() :
         p.name AS product_name,
         COALESCE(fl.name,'N/A') AS from_location_name,
         COALESCE(tl.name,'N/A') AS to_location_name,
+        m.quantity,
         m.Date_Time
         FROM Movement m
         JOIN Product p ON m.product_id = p.product_id
@@ -129,9 +177,20 @@ def product_movement() :
         LEFT JOIN Location tl ON m.to_location = tl.location_id;
     ''')
     movement=cur.fetchall()
+    cur.execute('''
+        SELECT
+        s.stock_id,
+        p.name as product_name,
+        l.name as location_name,
+        s.quantity 
+        from Stock s
+        JOIN Product p ON s.product_id = p.product_id
+        JOIN Location l ON s.location_id = l.location_id ;
+    ''')
+    stock=cur.fetchall()
     cur.close()
     connection.close()
-    return render_template('product_movement.html',movements=movement)
+    return render_template('product_movement.html',movements=movement,stocks=stock)
 
 if __name__=='__main__' :
     app.run(debug=True)
