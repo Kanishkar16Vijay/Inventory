@@ -2,6 +2,65 @@
 <html lang="en">
 <head>
     <title>Product Movement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        .links {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <h1>Product Movement</h1>
@@ -42,10 +101,12 @@
         </tr>
         {% endfor %}
     </table>
-    <a href="/addproduct">Add Product</a>
-    <a href="/viewproduct">View Products</a>
-    <a href="/addlocation">Add Location</a>
-    <a href="/viewlocation">View Locations</a>
-    <a href="/addmovement">Add Movement</a>
+    <div class="links">
+        <a href="/addproduct">Add Product</a>
+        <a href="/viewproduct">View Products</a>
+        <a href="/addlocation">Add Location</a>
+        <a href="/viewlocation">View Locations</a>
+        <a href="/addmovement">Add Movement</a>
+    </div>
 </body>
 </html>

@@ -5,16 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Tab</title>
     <style>
-        .container{
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background-color: grey;
+        }
+        
+        h1 {
             text-align: center;
-            justify-content: center;
-            align-items: center;
-            font-size: 30px;
-            padding-top: 200px;
+            color: #133251;
+            margin-bottom: 30px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container a {
+            display: block;
+            padding: 15px;
+            background: #f0f0f0;
+            text-align: center;
+            text-decoration: none;
+            color: #2c3e50;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+        
+        .container a:hover {
+            background: #dddddd;
         }
     </style>
 </head>
 <body>
+    <h1>Inventory Management System</h1>
     <div class="container">
         <a href="/addproduct">Add products</a>
         <br>
