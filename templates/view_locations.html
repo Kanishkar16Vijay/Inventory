@@ -18,7 +18,9 @@
         }
         
         table {
-            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            width: 30%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
@@ -66,12 +68,10 @@
     <h1>View Location</h1>
     <table>
         <tr>
-            <th>Location ID</th>
             <th>Location Name</th>
         </tr>
         {% for dict in locations %}
         <tr>
-            <td>{{dict['location_id']}}</td>
             <td>{{dict['name']}}</td>
         </tr>
         {% endfor %}

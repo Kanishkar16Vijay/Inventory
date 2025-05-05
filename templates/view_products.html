@@ -18,7 +18,9 @@
         }
         
         table {
-            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            width: 70%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
@@ -66,13 +68,12 @@
     <h1>View Products</h1>
     <table>
         <tr>
-            <th>Product ID</th>
             <th>Product Name</th>
             <th>Price</th>
+            <th>Option</th>
         </tr>
         {% for dict in products %}
         <tr>
-            <td>{{dict['product_id']}}</td>
             <td>{{dict['name']}}</td>
             <td>{{dict['price']}}</td>
             <td><a href="/editproduct/{{dict['product_id']}}">Edit</a></td>

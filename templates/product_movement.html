@@ -18,7 +18,9 @@
         }
         
         table {
-            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            width: 60%;
             border-collapse: collapse;
             margin-bottom: 30px;
         }
@@ -66,7 +68,6 @@
     <h1>Product Movement</h1>
     <table>
         <tr>
-            <th>Movement ID</th>
             <th>Product Name</th>
             <th>From Location</th>
             <th>To Location</th>
@@ -75,7 +76,6 @@
         </tr>
         {% for dict in movements %}
         <tr>
-            <td>{{dict['movement_id']}}</td>
             <td>{{dict['product_name']}}</td>
             <td>{{dict['from_location_name']}}</td>
             <td>{{dict['to_location_name']}}</td>
@@ -87,14 +87,12 @@
     <h1>Stocks</h1>
     <table>
         <tr>
-            <th>Stock ID</th>
             <th>Product Name</th>
             <th>Location Name</th>
             <th>Quantity</th>
         </tr>
         {% for dict in stocks %}
         <tr>
-            <td>{{dict['stock_id']}}</td>
             <td>{{dict['product_name']}}</td>
             <td>{{dict['location_name']}}</td>
             <td>{{dict['quantity']}}</td>
