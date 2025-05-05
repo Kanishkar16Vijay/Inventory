@@ -83,3 +83,5 @@ Inventory
    ```
 2. Press the ```Ctrl+``` click on this link ```http://127.0.0.1:5000```
    ![Screenshot 2025-05-05 190903](https://github.com/user-attachments/assets/77bf3dc9-0394-44ed-b86c-6d26cf83ff29)
+## Demo Video
+https://drive.google.com/file/d/1dgN_tJDx-th9yVcs3KhsveS-56ZzaZci/view?usp=sharing
