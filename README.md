@@ -74,6 +74,7 @@ Inventory
       ├──add_movement.html
       ├──product_movement.html
 ├──app.py
+├──Demo Video.mp4
 ```
 ### 5. Execute
 1. Open command prompt and type
